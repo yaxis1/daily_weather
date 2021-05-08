@@ -1,4 +1,3 @@
-#api = "228d035930bf3aa35173b0fb636da8ba"
 
 #open_weather = f'http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={api}'
 

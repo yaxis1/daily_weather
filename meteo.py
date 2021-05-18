@@ -9,8 +9,8 @@ import io
 lat = 48.86
 lon = 2.34
 part = "current,minutely,hourly,alerts"
-API_key = 'fad428a7fe71d3a7f648cba70fa84ca1'
-#"228d035930bf3aa35173b0fb636da8ba"
+API_key = ''
+
 
 url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API_key}&units=metric"
 

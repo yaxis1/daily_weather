@@ -52,8 +52,6 @@ class netcdf_cols:
         df.to_sql(f"netcdf_{name}", self.engine, if_exists='replace',index=False)
 
 
-
-
 class netcdf:
 
  #Database connection
@@ -159,7 +157,7 @@ class netcdf:
                     rasters.append( (t, signal, path) )
                     
                     if num_rasters!=None and len(rasters)>=num_rasters:
-                        if not check_rasters():
+                        if not check_rasters(db_raster):
                             cmd = 'raster2pgsql -s 4326 -C -F -t auto {}* {}.{} | psql -U {} -d {} -h {} -p 5432'.format(path,db_schema,db_raster,db_user,db_name,db_host)
                             yield rasters
                             subprocess.call(cmd, shell=True)
@@ -172,9 +170,9 @@ class netcdf:
             rasters.clear()
 
         
-data1 = netcdf_cols('WindData2020_03_13_to_26.nc')
+data1 = netcdf_cols('/mnt/data/rasters/WindData2020_03_13_to_26.nc')
 
-#data = netcdf('/mnt/data/rasters/WindData2020_03_13_to_26.nc')
+data = netcdf('/mnt/data/rasters/WindData2020_03_13_to_26.nc')
 
 #Creating columns
 data1.write_data('time',data1.df_time)
@@ -183,8 +181,8 @@ data1.write_data('lat',data1.df_lat)
 data1.write_data('metadata', data1.df_meta_data())
 
 #Creating rasters
-#for x in data.rasterize('netcdf_rasters'):
-#    print(x)
+for x in data.rasterize('netcdf_rasters'):
+    print(x)
 
 end_time = time.time()
 print("Execution time: ", end_time - start_time)
